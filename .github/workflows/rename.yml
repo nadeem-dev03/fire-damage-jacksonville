@@ -1,0 +1,19 @@
+name: Rename uploaded export to index.html
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename uploaded file to index.html
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git rm -q index.html || true
+          git mv fire-damage-jacksonville.html index.html
+          git commit -m "Rename new fire-damage-jacksonville.html to index.html (Oct 31)"
+          git push
